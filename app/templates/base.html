@@ -1,0 +1,71 @@
+<html>
+  <head>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script src="https://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="/static/css/print.css">
+    {% if title %}
+    <title>ToDoList - {{ title }}</title>
+    {% else %}
+    <title>ToDoList Application</title>
+    {% endif %}
+    <style>
+      ul#menu li {
+          display:inline;
+      }
+    </style>
+  </head>
+  <body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+      </div>
+      <ul class="nav navbar-nav">
+
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">To Do List
+             <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+               <li><a href="/">View ToDoList</a></li>
+              <li><a href="/create_todolist">Create ToDoList</a></li>
+             </ul>
+         </li>
+
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+      <li><a href="/"><span class="glyphicon glyphicon-remove"></span> </a></li>
+      </ul>
+
+    </div>
+</nav>
+
+<form method="post" action="/">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+</form>
+
+
+    <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+        {% with messages = get_flashed_messages(category_filter=['error'])%}
+          {% if messages %}
+
+            {% for message in messages %}
+            <div class="alert alert-warning">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                  <strong>Error!</strong> {{ message }}
+            </div>
+            {% endfor %}
+
+          {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+  </div>
+
+  </body>
+</html>

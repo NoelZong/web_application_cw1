@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+
+      <td><a href="/create_todolist"><button type="button" class="btn btn-primary" style="background:green">Create List</button></a><td>
+      
+      <td><a href="/todolist_yes"><button type="button" class="btn btn-primary">View Completed</button></a></td>
+
+      <td><a href="/todolist_no"><button type="button" class="btn btn-primary">View Uncompleted</button></a></td>
+
+      <td><a href="/"><button type="button" class="btn btn-primary">All Lists</button></a></td>
+
+<table class="table" class="form-control input-lg">
+    <thead>
+      <tr>
+      	<th>Title</th>
+        <th>Content</th>
+        <th>Complete</th>
+        <th>Date</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+
+
+    {% for todolist in todolist %}
+
+    {% if todolist.status==True %}
+    <tr style="background:#F0FFFF" >
+      <td>{{todolist.title}}</td>    	
+      <td>{{todolist.content}}</td>
+      <td>{{todolist.status}}</td>
+      <td>{{todolist.date}}</td>
+
+      <td><a href="/todolist_complete/{{todolist.todolistId}}"><button type="button" class="btn btn-primary">Complete</button></a></td>
+
+      <td><a href="/delete_todolist/{{todolist.todolistId}}"><button type="button" class="btn btn-primary" style="background:red">Delete</button></a></td>
+    </tr>
+
+    {% else %}
+    <tr   style="background:#FFE4C4">
+      <td>{{todolist.title}}</td>
+      <td>{{todolist.content}}</td>
+      <td>{{todolist.status}}</td>
+      <td>{{todolist.date}}</td>
+
+      <td><a href="/todolist_complete/{{todolist.todolistId}}"><button type="button" class="btn btn-primary">Complete</button></a></td>
+
+      <td><a href="/delete_todolist/{{todolist.todolistId}}"><button type="button" class="btn btn-primary" style="background:red">Delete</button></a></td>
+    </tr>
+    {%endif%}
+    {% endfor %}
+  
+  </tbody>
+</table>
+
+{% endblock %}
